@@ -30,7 +30,7 @@ function App() {
       <NavBar />
       <Routes>
         <Route path='/' element={<Home />}/>
-        <Route path='/profile/:username' element={<ProfileView />}/>
+        <Route path='/profile/:username' element={<ProfileView userEmail={user.email}/>}/>
       </Routes>
     </BrowserRouter>
   );

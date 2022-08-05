@@ -49,15 +49,18 @@ export default function SignIn() {
 
   async function createNewProfileInFirebaseCollection () {
     try {
-      await addDoc(collection(getFirestore(), 'profiles'), {
-        name: getName(),
-        email: getEmail(),
-        profilePicUrl: getPfp(),
-        followers: 0,
-        following: 0,
-        photos: 0,
-        posts: '',
-      }, getEmail());
+      let ref = doc(getFirestore(), 'profiles', getEmail());
+      const docRef = await setDoc(
+        ref, {
+          name: getName(),
+          email: getEmail(),
+          profilePicUrl: getPfp(),
+          followers: 0,
+          following: 0,
+          photos: 0,
+          posts: '',
+        }
+      )
     }
     catch(error) {
       console.error('Error adding profile to firebase', error);
