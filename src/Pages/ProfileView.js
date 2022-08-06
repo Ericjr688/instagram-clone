@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-
+import {
+  getAuth,
+  onAuthStateChanged,
+} from 'firebase/auth';
 import {
   getFirestore,
   collection,
@@ -15,35 +18,71 @@ import {
   serverTimestamp,
   getDoc,
 } from 'firebase/firestore';
-import { useCollectionData } from 'react-firebase-hooks/firestore'
 
 export default function ProfileView(props) {
-  let { username } = useParams();
-  const [ prodileData, setProfileData ] = useState({});
+  let { username } = useParams(); // used to access individual profile pages
+  const [ profileData, setProfileData ] = useState({});
 
+  // this is to get the current active user
+  const [ user, setUser ] = useState(getAuth().currentUser);
+  useEffect(() => {
+    onAuthStateChanged(getAuth(), () => {
+      setUser(getAuth().currentUser);
+    });
+  })
+  
+  const userEmail = props.userEmail; // the user email would be the key to get the user information of which the profile belongs to from firebase.
 
-  const userEmail = props.userEmail;
+  // gets information from firebase and sets state using information
   async function getUserFromEmail() {
     var ref = doc(getFirestore(), 'profiles', userEmail)
-    console.log('ref', ref)
     const docSnap = await getDoc(ref);
-    console.log(docSnap.data())
     setProfileData({
       name: docSnap.data().name,
       email: docSnap.data().email,
       profilePicUrl: docSnap.data().profilePicUrl,
-      followers: docSnap.data().followers,
-      following: docSnap.data().following,
+      followers: docSnap.data().followers, // array of followers
+      following: docSnap.data().following, // array of following
       photos: docSnap.data().photos,
       posts: docSnap.data().posts,
     })
   }
 
+  function isCurrentUserProfile() {
+    // this is to check if the profile belongs to the current active user
+    if (userEmail === user.email) {
+      return 'true'
+    }
+  }
+
+  
   // use effect?
   getUserFromEmail()
 
-  // finds user information from firebase and displays it
+  // add a button to follow that is hidden if current user is = to the user of the page. Then update followers for target profile
+  // and following for current profile
   return (
-    <div>ProfileView for {username} </div>
+    <div className='container'>
+      <div className='header'>
+        <img src={profileData.profilePicUrl} alt='profile pic'></img>
+        <div className='right-side'>
+          <div>
+            <h6>{profileData.name} </h6>
+            { isCurrentUserProfile() ? null : <button>Follow</button> }
+          </div>
+          
+          <div>
+            <p> <span>{profileData.photos}</span> photos</p>
+            <p> <span>{profileData.followers}</span> followers</p>
+            <p> <span>{profileData.following}</span> following</p>
+          </div>
+          <p>{profileData.name} </p>
+        </div>
+      </div>
+      {/* create state to select between posts, followers, and following. */}
+      <div className='profile-posts'>
+        {profileData.posts}
+      </div>
+    </div>
   )
 }
