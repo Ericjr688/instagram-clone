@@ -21,6 +21,7 @@ export default function NavBar(props) {
         <Link className='brand-logo left large-font-size' to='/'>Owuragram</Link>
         <ul id="nav-mobile" className="right">
           <li><Link to='/'><i className='material-icons'>home</i></Link></li>
+          <li><Link to='upload-post'><i className='material-icons'>upload</i></Link></li>
           <li><Link to={'/profile/'+user.displayName.replace( /\s/g, '')}><ProfileIcon/></Link></li>
           <li><Account /></li>
         </ul>

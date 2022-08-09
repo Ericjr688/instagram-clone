@@ -10,6 +10,7 @@ import Home from './Pages/Home';
 import firebase from './firebase';
 import ProfileView from './Pages/ProfileView';
 import SignIn from './Components/SignIn';
+import UploadPost from './Pages/UploadPost';
 
 function App() {
   const [ user, setUser ] = useState(getAuth().currentUser);
@@ -31,6 +32,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />}/>
         <Route path='/profile/:username' element={<ProfileView userEmail={user.email}/>}/>
+        <Route path='/upload-post' element={<UploadPost />}/>
       </Routes>
     </BrowserRouter>
   );

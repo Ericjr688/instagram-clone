@@ -50,7 +50,7 @@ export default function ProfileView(props) {
 
   function isCurrentUserProfile() {
     // this is to check if the profile belongs to the current active user
-    if (userEmail === user.email) {
+    if (user && userEmail === user.email) {
       return 'true'
     }
   }
