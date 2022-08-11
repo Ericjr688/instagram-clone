@@ -19,3 +19,9 @@ nav div.fit-to-nav {
   margin-top: .9rem;
   margin-right: 1rem;
 }
+
+.post-image {
+  height: 400px;
+  width: 500px;
+  overflow: hidden;
+}
