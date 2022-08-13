@@ -19,6 +19,7 @@ import {
   serverTimestamp,
 } from 'firebase/firestore';
 import { useCollectionData } from 'react-firebase-hooks/firestore'
+import { v4 } from 'uuid'; // random strings
 
 //sign in redirects to homepage
 export default function SignIn() {
@@ -50,15 +51,15 @@ export default function SignIn() {
   async function createNewProfileInFirebaseCollection () {
     try {
       let ref = doc(getFirestore(), 'profiles', getEmail());
-      const docRef = await setDoc(
+      await setDoc(
         ref, {
+          id: v4(),
           name: getName(),
           email: getEmail(),
           profilePicUrl: getPfp(),
-          followers: 0,
-          following: 0,
-          photos: 0,
-          posts: '',
+          followers: [],
+          following: [],
+          posts: [],
         }
       )
     }

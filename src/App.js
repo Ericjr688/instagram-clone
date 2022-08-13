@@ -12,6 +12,7 @@ import ProfileView from './Pages/ProfileView';
 import SignIn from './Components/SignIn';
 import UploadPost from './Pages/UploadPost';
 
+// upload profile photo to database so that we wouldn't keep requesting for it from google
 function App() {
   const [ user, setUser ] = useState(getAuth().currentUser);
   useEffect(() => {
@@ -31,7 +32,7 @@ function App() {
       <NavBar />
       <Routes>
         <Route path='/' element={<Home />}/>
-        <Route path='/profile/:username' element={<ProfileView userEmail={user.email}/>}/>
+        <Route path='/profile/:userId' element={<ProfileView />}/>
         <Route path='/upload-post' element={<UploadPost />}/>
       </Routes>
     </BrowserRouter>

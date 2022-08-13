@@ -1,35 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
   getStorage,
   ref,
-  uploadBytesResumable,
-  getDownloadURL,
   uploadBytes,
 } from 'firebase/storage';
 import {
   getFirestore,
-  collection,
-  addDoc,
-  query,
-  orderBy,
-  limit,
-  onSnapshot,
   setDoc,
-  updateDoc,
   doc,
   serverTimestamp,
-  getDoc,
 } from 'firebase/firestore';
 import {
   getAuth,
-  onAuthStateChanged,
 } from 'firebase/auth';
 import { v4 } from 'uuid'; // random strings
 import dLogo from "../images/default-logo.png"
 
 
-// create a post document by putting information of post in an object and uploading it to firebase. Create posts by
-// using info from database to create Post components in home page.
+// crop feature to select part of the photo to show and control sizes
 
 export default function UploadPost() {
   // this is to get the current active user
@@ -77,11 +65,12 @@ export default function UploadPost() {
           picDirectory: directory,
           likes: 0,
           timestamp: serverTimestamp(),
-          description: description,
+          description: description || '',
           comments: [],
         }
       )
     }
+    // name of photo is docRef.id
     catch(error) {
       console.error('Error adding post to firebase', error);
     }
@@ -145,7 +134,7 @@ export default function UploadPost() {
   }
 
   return (
-    <div>
+    <div className='container upload-post'>
       { currentStep === 'post-upload' ? <PostUpload /> : <PostPreview /> }
     </div>
   )

@@ -5,6 +5,12 @@ nav button {
   color: inherit;
 }
 
+nav {
+  position: fixed;
+}
+.upload-post, .profile-view, .home-page {
+  padding-top: 6rem;
+}
 nav img.fit-to-nav {
   height: 2.5rem;
   margin-top: .9rem;
@@ -14,14 +20,64 @@ nav div.fit-to-nav {
   height:4.3rem;
 }
 
-.post-profile-img {
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.home-page .post-profile-img, .home-page .post-pfp {
   height: 2.5rem;
   margin-top: .9rem;
   margin-right: 1rem;
 }
 
-.post-image {
-  height: 400px;
-  width: 500px;
+.home-page .post-image {
+  max-height: 500px;
+  min-height: 300px;
   overflow: hidden;
+  border-top: solid 0.25pt rgb(193, 193, 193);
+}
+
+.home-page .like-button-container * {
+  cursor: pointer;
+  font-size: 2.2rem;
+}
+
+.home-page .post {
+  padding: 0;
+  border: solid 0.25pt rgb(193, 193, 193);
+  border-radius: 5px;
+  float: none;
+  margin: auto;
+  font-size: 1.1rem;
+}
+
+.home-page .post .post-content {
+  padding: 1rem .8rem;
+}
+
+.home-page .post .post-content .like-button-container {
+  margin-bottom: .5rem;
+  display: flex;
+  gap:.8rem;
+} 
+
+.home-page .post-pfp {
+  margin-top: 0;
+}
+
+.home-page .post-header {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  padding: .8rem;  
+}
+
+.home-page .post-header *{
+  cursor: pointer;
+}
+ 
+
+.home-page .row {
+  
 }

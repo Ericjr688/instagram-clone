@@ -38,10 +38,17 @@ export default function Home() {
     });
   }
 
+  const getRandom = () => {
+    return Math.floor(Math.random() * 999999999999999)
+  }
+  
+
   return (
-    <div className='container'>
+    <div className='container home-page'>
       {posts.map((post, index) => (
-            <Post postData={post} key={Math.random() *100}/>
+          <div className='row' key={getRandom()}>
+            <Post postData={post} key={getRandom()}/ >
+          </div>
           ))}
     </div>
 
