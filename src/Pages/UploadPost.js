@@ -27,9 +27,8 @@ export default function UploadPost() {
   const storage = getStorage();
   const [ imageUpload, setImageUpload ] = useState()
   const [ image, setImage ] = useState()
-  const [ description, setDescription ] = useState();
+  const [ description, setDescription ] = useState('');
   const [ currentStep, setCurrentStep ] = useState('post-upload') // this would determine which step of the image upload process would be shown at a given time
-
 
   function getName() {
     return user.displayName;
@@ -107,7 +106,9 @@ export default function UploadPost() {
                 <img src={image} alt='preview' className='responsive-image'></img>
               </div>
               <div className='card-content'>
-                <input placeholder='Add description' id='upload-post-description' type='text' value = {description} onChange = {handleDescriptionChange} ></input>
+                <form>
+                  <input placeholder='Add description' id='upload-post-description' type='text' autoFocus onChange={e => setDescription(e.target.value)} value={description} ></input>
+                </form>
               </div>
             </div>
           </div>  

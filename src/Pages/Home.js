@@ -43,7 +43,6 @@ export default function Home() {
     <div className='container home-page'>
       {posts.map((post, id) => (
           <div className='row' key={id}>
-            {id}
             <Post postData={post} key={id}/ >
           </div>
           ))}
