@@ -42,3 +42,4 @@ function App() {
 export default App;
 
 // loading screens
+// like(s) and follower(s)

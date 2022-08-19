@@ -12,6 +12,8 @@ import {
   doc,
   serverTimestamp,
   getDoc,
+  QuerySnapshot,
+  getDocs,
 } from 'firebase/firestore';
 import Post from '../Components/Post';
 
@@ -21,33 +23,28 @@ export default function Home() {
   const [ posts, setPosts ] = useState([])
   useEffect(() => {
     loadPosts();
-  }, [])
+  },[])
 
-  function loadPosts() {
+  async function loadPosts() {
     // Create the query to load the last 12 posts and listen for new ones.
     const recentPostsQuery = query(collection(getFirestore(), 'posts'), orderBy('timestamp', 'desc'), limit(12));
-    onSnapshot(recentPostsQuery, function(snapshot) {
-      snapshot.docChanges().forEach(function(change) {
-        if (change.type === 'removed') {
-          return // supoosed to delete
-        } else {
-          var post = change.doc.data();
-          setPosts((prev) => [...prev, post]);
-        }
-      });
-    });
-  }
+    const querySnapshot = await getDocs(recentPostsQuery)
 
-  const getRandom = () => {
-    return Math.floor(Math.random() * 999999999999999)
+    querySnapshot.forEach((doc) => {
+      var post = {}
+        post.id = doc.id;
+        setPosts((prev) => [...prev, post]);
+    })
+    console.log(posts)
   }
   
 
   return (
     <div className='container home-page'>
-      {posts.map((post, index) => (
-          <div className='row' key={getRandom()}>
-            <Post postData={post} key={getRandom()}/ >
+      {posts.map((post, id) => (
+          <div className='row' key={id}>
+            {id}
+            <Post postData={post} key={id}/ >
           </div>
           ))}
     </div>

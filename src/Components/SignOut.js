@@ -4,9 +4,13 @@ import {
   onAuthStateChanged,
   signOut,
 } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignOut() {
+  let navigate = useNavigate();
+
   function handleSignOut(){
+    navigate('/')
     signOut(getAuth());
   };
 

@@ -63,7 +63,7 @@ export default function UploadPost() {
           email: getEmail(),
           profilePicUrl: getPfp(),
           picDirectory: directory,
-          likes: 0,
+          likes: [],
           timestamp: serverTimestamp(),
           description: description || '',
           comments: [],
